@@ -8,7 +8,7 @@ on:
 env:
   NODE_VERSION: 16
   
-  HARDHAT_CONFIG: ./hardhat.config.js
+
 
 jobs:
   deploy:
@@ -34,6 +34,7 @@ jobs:
       run: |
     
         yarn run hardhat compile
+        npx hardhat run scripts/deploy.js --network volta
         yarn hardhat run --network ./hardhat.config.js deploy
      
 
