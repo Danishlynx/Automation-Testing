@@ -20,14 +20,16 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ env.NODE_VERSION }}
-    
-    - name: Install Hardhat dependencies
-      run: |
-       npm install --save-dev hardhat
+
+    - name: Install Hardhat
+      run: yarn add hardhat
 
     - name: Compile and deploy the smart contract using Hardhat
       run: |
-        npm install -g hardhat
-        hardhat compile
-        hardhat deploy
+        
+        yarn run hardhat compile
+        yarn run hardhat deploy
 
+    - name: Notify of deployment success
+      run: |
+        # Your notification script here (e.g. sending an email, Slack message, etc.)
