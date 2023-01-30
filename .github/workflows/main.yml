@@ -1,0 +1,39 @@
+name: Deploy to Volta Network
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - uses: actions/setup-node@v3
+      with:
+        node:version: current
+
+    - name: Install Hardhat
+      run: npm install -g hardhat
+
+    - name: Configure Hardhat
+      run: ht configure --config-file hardhat/hardhat.config.js
+
+    - name: Deploy to Volta testnet
+      run: ht run hardhat/deploy.js --network volta
+
+    - name: Store contract address in GitHub Actions artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: contract-address
+        path: contract-address.txt
+
+    - name: Store deployment logs in GitHub Actions artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: deployment-logs
+        path: deployment.log
