@@ -34,6 +34,6 @@ jobs:
       run: |
     
         yarn run hardhat compile
-        npx hardhat run --network ./hardhat.config.js deploy
+        npx hardhat run ./hardhat.config.js deploy
      
 
