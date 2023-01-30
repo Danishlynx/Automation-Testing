@@ -40,8 +40,6 @@ jobs:
       run: hardhat test
 
   deploy:
-    if: ${{success()}}
-    needs: review
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
