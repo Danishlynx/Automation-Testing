@@ -10,7 +10,7 @@ env:
   
 
 jobs:
-  deploy:
+  Smart_Contract_Automation:
     runs-on: ubuntu-latest
 
     steps:
