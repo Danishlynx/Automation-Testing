@@ -30,8 +30,14 @@ jobs:
 
     - name: Compile and deploy the smart contract using Hardhat
       run: |
-    
         yarn run hardhat compile
+        
+    - name: Test
+      run: |
+        yarn run hardhat test
+        
+    - name: Deploy 
+      run: |
         yarn hardhat run --network Volta ./scripts/deploy.js
 
        
