@@ -32,7 +32,7 @@ jobs:
 
     - name: Compile and deploy the smart contract using Hardhat
       run: |
-        run: |
+    
         yarn run hardhat compile
         npx hardhat run --network ${{ env.HARDHAT_CONFIG }} <your_hardhat_command>
         yarn run hardhat deploy
