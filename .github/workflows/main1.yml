@@ -34,8 +34,7 @@ jobs:
       run: |
     
         yarn run hardhat compile
-        npx hardhat run --network ${{ env.HARDHAT_CONFIG }} deploy.js
-
+        npx hardhat run --network ./hardhat.config.js deploy
      
 
     - name: Notify of deployment success
