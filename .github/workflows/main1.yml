@@ -34,6 +34,8 @@ jobs:
       run: |
     
         yarn run hardhat compile
+        yarn hardhat run --network Volta --compile
+        yarn hardhat run --network Volta --compile Token.sol
         yarn hardhat run --network Volta ./hardhat.config.js deploy
      
 
