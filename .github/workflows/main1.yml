@@ -34,6 +34,6 @@ jobs:
       run: |
     
         yarn run hardhat compile
-        yarn hardhat run --network ./hardhat.config.js deploy
+        yarn hardhat run --network Volta ./hardhat.config.js deploy
      
 
