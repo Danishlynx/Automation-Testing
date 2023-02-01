@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Compile and deploy the smart contract using Hardhat
+    - name: Compile 
       run: |
         yarn run hardhat compile
         
