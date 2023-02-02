@@ -38,7 +38,7 @@ jobs:
         
     - name: Select deployment network
       id: network_prompt
-      uses: actions/main/read-input@v2
+      uses: actions/bin/read-input@v2
       with:
         name: network
         message: "Please select the network to deploy to (Volta or EWC)"
