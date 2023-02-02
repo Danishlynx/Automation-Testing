@@ -2,18 +2,30 @@ name: Read Input
 
 inputs:
   name:
-    description: "The name of the input to retrieve"
+    description: "The name of the input to be prompted for."
     required: true
   message:
-    description: "The prompt message to display to the user"
+    description: "The prompt message for the input."
     required: true
   default:
-    description: "The default value to use if the user does not provide an input"
+    description: "The default value for the input."
     required: false
 
 outputs:
-  output:
-    description: "The value entered by the user or the default value"
+  value:
+    description: "The value entered by the user."
 
-run: |
-  echo "##[set-output name=output;]${{ inputs.default }}"
+runs:
+  using: "node12"
+
+  steps:
+  - name: Read input
+    id: read_input
+    uses: actions/bin/read-input@v2
+    with:
+      name: ${{ inputs.name }}
+      message: ${{ inputs.message }}
+      default: ${{ inputs.default }}
+      
+  - name: Set output
+    run: echo "::set-output name=value::${{ steps.read_input.outputs.value }}"
