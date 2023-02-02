@@ -1,0 +1,19 @@
+name: Read Input
+
+inputs:
+  name:
+    description: "The name of the input to retrieve"
+    required: true
+  message:
+    description: "The prompt message to display to the user"
+    required: true
+  default:
+    description: "The default value to use if the user does not provide an input"
+    required: false
+
+outputs:
+  output:
+    description: "The value entered by the user or the default value"
+
+run: |
+  echo "##[set-output name=output;]${{ inputs.default }}"
