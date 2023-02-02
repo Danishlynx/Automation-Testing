@@ -38,7 +38,7 @@ jobs:
         
     - name: Select deployment network
       id: network_prompt
-      uses: ./.github/workflows/read-input.yml
+      uses: ./.github/workflows/read-input@v2
       with:
         name: network
         message: "Please select the network to deploy to (Volta or EWC)"
