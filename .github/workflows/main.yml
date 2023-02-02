@@ -38,7 +38,7 @@ jobs:
         
     - name: Select deployment network
       id: network_prompt
-      uses: ./.github/workflows/read-input.yml
+      uses: ./.github/workflows/actions.yml
       with:
         name: network
         message: "Please select the network to deploy to (Volta or EWC)"
@@ -47,10 +47,6 @@ jobs:
         
     - name: Deploy to selected network
       run: |
-        network=${{ steps.network_prompt.outputs.network }}
+        network=${{ steps.network_prompt.outputs.value }}
         echo "Deploying to network $network"
         yarn hardhat run --network $network ./scripts/deploy.js
-
-       
-     
-
