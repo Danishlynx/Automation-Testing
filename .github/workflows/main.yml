@@ -36,9 +36,20 @@ jobs:
       run: |
         yarn run hardhat test
         
-    - name: Deploy 
+    - name: Select deployment network
+      id: network_prompt
+      uses: actions/bin/read-input@v2
+      with:
+        name: network
+        message: "Please select the network to deploy to (Volta or EWC)"
+        default: Volta
+          
+        
+    - name: Deploy to selected network
       run: |
-        yarn hardhat run --network Volta ./scripts/deploy.js
+        network=${{ steps.network_prompt.outputs.network }}
+        echo "Deploying to network $network"
+        yarn hardhat run --network $network ./scripts/deploy.js
 
        
      
