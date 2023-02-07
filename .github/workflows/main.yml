@@ -3,7 +3,7 @@ name: Automated Deployment of Smart Contracts
 on: 
   push:
     branches:
-      - deploy-volta
+      - main
     
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
