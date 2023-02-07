@@ -1,18 +1,44 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-ethers");
+require("@openzeppelin/hardhat-upgrades");
+require("@nomiclabs/hardhat-etherscan");
 
-const Volta_PRIVATE_KEY = "1360ed6b3f0b509ccc3961e2c09caccd2a9b9422101938fb238ad5326323b11a";
 
+require('dotenv').config(); 
+
+const deployKey = process.env.PRIVATE_KEY;
+
+//const deployKey = '54ee5949d58d0b1e7fa479ffd8cf182b0ec18977278c6f38e26024760d37d8ab'
+// Go to https://www.alchemyapi.io, sign up, create
+// a new App in its dashboard, and replace "KEY" with its key
+//const ALCHEMY_API_KEY = "QRdWak4iQNV6uH4mh2h66k3ApBj9bWTX";
+
+// Replace this private key with your Goerli account private key
+// To export your private key from Metamask, open Metamask and
+// go to Account Details > Export Private Key
+// Beware: NEVER put real Ether into testing accounts
+//const GOERLI_PRIVATE_KEY = "54ee5949d58d0b1e7fa479ffd8cf182b0ec18977278c6f38e26024760d37d8ab";
 
 
 module.exports = {
   solidity: "0.8.9",
   networks: {
-    Volta: {
+    /*goerli: {
+      url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+      accounts: [GOERLI_PRIVATE_KEY]
+    },*/
+    volta: {
       url: "https://volta-rpc.energyweb.org",
-      chainId: 73799,
-      accounts: [Volta_PRIVATE_KEY]
-    }
-    
-    
+      accounts: [deployKey],
+      chainId: 73799
+    },
+    ewc: {
+      url: "https://rpc.energyweb.org",
+      chainId: 246,
+      accounts: [deployKey]
+      
+    },
+    etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY,
   }
 };

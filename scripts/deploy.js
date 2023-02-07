@@ -1,19 +1,14 @@
+//scripts/deploy_contract.js
+const { ethers, upgrades } = require("hardhat");
+
 async function main() {
-  const [deployer] = await ethers.getSigners();
-
-  console.log("Deploying contracts with the account:", deployer.address);
-
-  console.log("Account balance:", (await deployer.getBalance()).toString());
-
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-
-  console.log("Token address:", token.address);
+   const CalculatorV1 = await ethers.getContractFactory("CalculatorV1");
+    console.log("Deploying Calculator...");
+    const calculator = await upgrades.deployProxy(CalculatorV1, [42], {
+        initializer: "initialize",
+    });
+    await calculator.deployed();
+    console.log("Calculator deployed to:", calculator.address);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main();

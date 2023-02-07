@@ -1,52 +1,37 @@
-name: Deploy Smart Contract
+name: Automated Deployment of Smart Contracts
 
-on:
+on: 
   push:
     branches:
-      - main
-
+      - deploy-volta
+    
 env:
-  NODE_VERSION: 16
-  
+  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
 jobs:
-  Smart_Contract_Automation:
+  deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-
-    - name: Install Hardhat
-      run: yarn add hardhat
-      
-    - name: Install dependencies
-      run: npm install
-
-    - name: Compile 
-      run: |
-        yarn run hardhat compile
+      - name: Checkout code
+        uses: actions/checkout@v2
         
-    - name: Test
-      run: |
-        yarn run hardhat test
-        
-    - name: Select deployment network
-      id: network_prompt
-      uses: ./.github/workflows/actions.yml
-      with:
-        name: network
-        message: "Please select the network to deploy to (Volta or EWC)"
-        default: Volta
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node:version: current
           
+      - name: Install dependencies 
+        run: npm ci
         
-    - name: Deploy to selected network
-      run: |
-        network=${{ steps.network_prompt.outputs.value }}
-        echo "Deploying to network $network"
-        yarn hardhat run --network $network ./scripts/deploy.js
+      - name: Installing hardhat
+        run: npm install -g hardhat
+        
+      - name: Compile contract
+        run: npx hardhat compile
+
+      - name: Test contract
+        run: npx hardhat test
+
+      - name: Deploy contract
+        run: npx hardhat run scripts/deploy.js --network volta
