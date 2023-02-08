@@ -10,9 +10,7 @@ on:
           - ewc
           required: true
           default: volta
-    
-env:
-  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
 
 jobs:
   deploy:
