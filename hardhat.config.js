@@ -1,12 +1,15 @@
-require("@nomicfoundation/hardhat-toolbox");
-require("@nomiclabs/hardhat-ethers");
-require("@openzeppelin/hardhat-upgrades");
+
+require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
+require('@openzeppelin/hardhat-upgrades');
 
 
-require('dotenv').config(); 
 
-const deployKey = process.env.PRIVATE_KEY;
+
+deployKey= "1360ed6b3f0b509ccc3961e2c09caccd2a9b9422101938fb238ad5326323b11a"
+
+
+
 
 //const deployKey = '54ee5949d58d0b1e7fa479ffd8cf182b0ec18977278c6f38e26024760d37d8ab'
 // Go to https://www.alchemyapi.io, sign up, create
@@ -37,8 +40,6 @@ module.exports = {
       chainId: 246,
       accounts: [deployKey]
       
-    },
-    etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    }   
   }
 };

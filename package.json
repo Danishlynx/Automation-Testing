@@ -1,30 +1,23 @@
 {
-  "name": "smart-contract-deployment",
+  "name": "my-upgradeable-contract",
   "version": "1.0.0",
-  "description": "In this repository you can see an example of how a simple smart contract deployment can be automated using GitHub Actions workflow.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/energywebfoundation/smart-contract-deployment.git"
-  },
-  "author": "Hamza",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/energywebfoundation/smart-contract-deployment/issues"
-  },
-  "homepage": "https://github.com/energywebfoundation/smart-contract-deployment#readme",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
-    "hardhat": "^2.12.6",
-    "@nomiclabs/hardhat-ethers": "^2.0.3",
-    "@nomiclabs/hardhat-etherscan": "^2.1.8",
-    "@openzeppelin/hardhat-upgrades": "^1.12.0",
-    "ethers": "^5.5.2"
+    "hardhat": "^2.12.6"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@nomiclabs/hardhat-etherscan": "^3.0.1",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts-upgradeable": "^4.8.1",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
     "dotenv": "^16.0.3"
   }
 }
