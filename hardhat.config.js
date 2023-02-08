@@ -6,8 +6,7 @@ require('@openzeppelin/hardhat-upgrades');
 
 
 
-deployKey= "1360ed6b3f0b509ccc3961e2c09caccd2a9b9422101938fb238ad5326323b11a"
-
+const deployKey = process.env.PRIVATE_KEY;
 
 
 
