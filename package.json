@@ -14,8 +14,6 @@
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.2",
-    "@ganache/cli": "0.8.3",
-    "@ganache/core": "0.8.3",
     "@nomiclabs/hardhat-etherscan": "^3.0.1",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/contracts-upgradeable": "^4.8.1",
