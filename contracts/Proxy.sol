@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-
-contract Proxy is Initializable, ERC1967Proxy {
+contract Proxy is Initializable {
   function initialize(address _logic, bytes memory _data) public payable initializer {
-    __ERC1967Proxy_init(_logic, _data);
+    _init(_logic, _data);
   }
 }
