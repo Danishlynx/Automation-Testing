@@ -1,4 +1,4 @@
-name: Deploy Proxy & Proxy Admin
+name: Deploy Proxy & Proxy Admin Contract
 
 on: 
   workflow_dispatch:
