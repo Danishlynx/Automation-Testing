@@ -9,7 +9,7 @@ contract Original is Initializable {
   uint public width;
   uint public length;
 
-  function initialize(uint _length, uint _width) public initializer {
+  constructor(uint _length, uint _width) {
     length = _length;
     width = _width;
   }
