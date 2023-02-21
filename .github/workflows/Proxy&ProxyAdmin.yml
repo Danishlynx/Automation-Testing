@@ -40,4 +40,4 @@ jobs:
         run: npx hardhat test
 
       - name: Deploy contract
-        run: npx hardhat run scripts/deploy_Proxy.js --network ${{ inputs.network }}
+        run: npx hardhat run scripts/deploy_Proxy_proxyAdmin.js --network ${{ inputs.network }}
