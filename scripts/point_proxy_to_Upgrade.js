@@ -1,18 +1,16 @@
-const { ethers, upgrades } = require("hardhat");
-
-// TO DO: Place the address of your proxy here!
-const proxyAddress = "0x1CaF216c1C7C62F60dE3d60A5f9B69fAcdf76842";
+const { ethers } = require("hardhat");
 
 async function main() {
+  const ProxyAdmin = await ethers.getContractFactory("ProxyAdmin");
+  const proxyAdminAddress = "0x1CaF216c1C7C62F60dE3d60A5f9B69fAcdf76842"
+ 
+
   const Upgrade = await ethers.getContractFactory("Upgrade");
-  const upgraded = await upgrades.upgradeProxy(proxyAddress, Upgrade);
-  console.log((await upgraded.area()).toString());
-  console.log((await upgraded.perimeter()).toString());
+  const upgradeAddress = "0x8a7bA58fd0C2b01E860A98009bB3452617495F67"; // replace with your deployed Upgrade contract address
+
+  const Proxy = await ethers.getContractAt("Proxy", upgradeAddress);
+  await Proxy.connect(proxyAdmin.address);
+  console.log("Proxy connected to ProxyAdmin:", Proxy.address);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main();
