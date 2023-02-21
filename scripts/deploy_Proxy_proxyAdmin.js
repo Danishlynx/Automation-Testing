@@ -7,7 +7,7 @@ async function main() {
   console.log("ProxyAdmin deployed to:", proxyAdmin.address);
 
   const Original = await ethers.getContractFactory("Original");
-  const originalAddress = "0x2388610B34414894f325a4B7ffEE05be9dd61248"; // replace with your deployed Original contract address
+  const originalAddress = "0x48cf3aFC4Fb98Dbd57f33602b655E4A37C7D1c91"; // replace with your deployed Original contract address
 
   const Proxy = await ethers.getContractAt("Proxy", originalAddress);
   await Proxy.connect(proxyAdmin.address);
