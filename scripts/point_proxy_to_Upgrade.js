@@ -9,7 +9,7 @@ async function main() {
   const upgradeAddress = "0x8a7bA58fd0C2b01E860A98009bB3452617495F67"; // replace with your deployed Upgrade contract address
 
   const Proxy = await ethers.getContractAt("Proxy", upgradeAddress);
-  await Proxy.connect(proxyAdmin.address);
+  await Proxy.connect(proxyAdminAddress.address);
   console.log("Proxy connected to ProxyAdmin:", Proxy.address);
 }
 
