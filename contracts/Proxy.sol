@@ -1,7 +1,10 @@
-
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967Proxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 
-contract Proxy is ERC1967Proxy {}
+contract MyProxy is TransparentUpgradeableProxy {
+    constructor(address _logic, address _admin, bytes memory _data) 
+        TransparentUpgradeableProxy(_logic, _admin, _data) 
+    {}
+}
