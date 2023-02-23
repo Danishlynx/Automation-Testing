@@ -1,18 +1,10 @@
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 
-abstract contract Proxy is Initializable {
-    function implementation() public view virtual returns (address);
-    function upgradeTo(address _impl) public virtual;
-    function upgradeToAndCall(address _impl, bytes memory _data) public payable virtual;
-    
-    fallback() external payable {
-        revert("Fallback function not implemented.");
-    }
-    
-    receive() external payable {
-        revert("Receive function not implemented.");
-    }
+contract MyProxy is TransparentUpgradeableProxy {
+    constructor(address _logic, address _admin, bytes memory _data) 
+        TransparentUpgradeableProxy(_logic, _admin, _data) 
+    {}
 }
