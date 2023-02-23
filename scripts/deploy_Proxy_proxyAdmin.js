@@ -1,11 +1,9 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  const MyProxyAdmin = await ethers.getContractFactory("MyProxyAdmin");
+  const MyProxyAdmin = await ethers.getContractFactory("ProxyAdmin");
   const MyTransparentUpgradeableProxy = await ethers.getContractFactory("MyTransparentUpgradeableProxy");
-
-  // Deploy the implementation contract
-  const implementation = "0xa58187D5B92D07F53e0de434fA4c6Cd287bE084D"; // Replace with the implementation contract address
+  const implementationAddress = "0xa58187D5B92D07F53e0de434fA4c6Cd287bE084D"; // replace with your deployed implementation contract address
 
   // Deploy the proxy admin contract
   const proxyAdmin = await MyProxyAdmin.deploy();
@@ -14,7 +12,7 @@ async function main() {
 
   // Deploy the transparent upgradeable proxy contract
   const proxy = await MyTransparentUpgradeableProxy.deploy(
-    implementation,
+    implementationAddress,
     proxyAdmin.address,
     "0x"
   );

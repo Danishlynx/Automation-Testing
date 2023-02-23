@@ -9,15 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
-    "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@nomiclabs/hardhat-etherscan": "^3.0.1",
-    "@nomiclabs/hardhat-waffle": "^2.0.5",
-    "@openzeppelin/contracts-upgradeable": "^4.8.1",
-    "@openzeppelin/hardhat-upgrades": "^1.22.1",
-    "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
     "hardhat": "^2.12.7",
-    "upgradeable-proxy": "^1.2.6"
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.5",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
+    "@openzeppelin/contracts-upgradeable": "^4.8.1",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "dotenv": "^16.0.3"
   }
+ 
+
 }

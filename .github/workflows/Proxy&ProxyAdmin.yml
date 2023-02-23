@@ -27,15 +27,6 @@ jobs:
         with:
           node:version: current
           
-      - name: Install Random
-        run: npm install @openzeppelin/contracts
-
-  
-      - name: Install Random2
-        run: npm install @openzeppelin/contracts-upgradeable
-  
-  
-          
       - name: Install depndencies 
         run: npm ci
         
