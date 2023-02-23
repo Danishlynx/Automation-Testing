@@ -1,19 +1,29 @@
-const { ethers, upgrades } = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
-  const ProxyAdmin = await ethers.getContractFactory("ProxyAdmin");
-  const proxyAdmin = await ProxyAdmin.deploy();
+  // Deploy ProxyAdmin contract
+  const proxyAdminFactory = await hre.ethers.getContractFactory("ProxyAdmin");
+  const proxyAdmin = await proxyAdminFactory.deploy();
   await proxyAdmin.deployed();
   console.log("ProxyAdmin deployed to:", proxyAdmin.address);
 
-  const Proxy = await ethers.getContractFactory("Proxy");
-  const originalAddress = "0xa58187D5B92D07F53e0de434fA4c6Cd287bE084D"; // replace with your deployed Original contract address
-  const proxy = await upgrades.deployProxy(Proxy, originalAddress, { initializer: 'initialize' });
+  // Set up the TransparentUpgradeableProxy contract deployment
+  const originalAddress = "0xa58187D5B92D07F53e0de434fA4c6Cd287bE084D"; // Replace with the address of the deployed Original contract
+  const proxyFactory = await hre.ethers.getContractFactory("TransparentUpgradeableProxy");
+  const initData = "";
+  const proxy = await proxyFactory.deploy(originalAddress, proxyAdmin.address, initData);
   await proxy.deployed();
   console.log("Proxy deployed to:", proxy.address);
 
-  await proxyAdmin.setProxyAdmin(proxy.address, proxyAdmin.address);
-  console.log("ProxyAdmin set as admin of Proxy.");
+  // Set the ProxyAdmin contract as the admin of the proxy
+  await hre.ethers.getContractAt("TransparentUpgradeableProxy", proxy.address)
+    .then((proxyContract) => proxyContract.changeAdmin(proxyAdmin.address));
+  console.log("Proxy admin set to:", proxyAdmin.address);
 }
 
-main();
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
