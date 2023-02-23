@@ -27,6 +27,9 @@ jobs:
         with:
           node:version: current
           
+      - name: Install Random
+        run: npm install @openzeppelin/contracts
+          
       - name: Install depndencies 
         run: npm ci
         
