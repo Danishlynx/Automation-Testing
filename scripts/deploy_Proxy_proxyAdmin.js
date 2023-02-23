@@ -6,12 +6,19 @@ async function main() {
   await proxyAdmin.deployed();
   console.log("ProxyAdmin deployed to:", proxyAdmin.address);
 
-  const Original = await ethers.getContractFactory("Original");
-  const originalAddress = "0xA7BADE0CdDA50844A11EE6E1E1d2F0886C9B1B70"; // replace with your deployed Original contract address
+  const Upgrade = await ethers.getContractFactory("Upgrade");
+  const upgrade = await Upgrade.deploy();
+  await upgrade.deployed();
+  console.log("Upgrade deployed to:", upgrade.address);
 
-  const Proxy = await ethers.getContractAt("Proxy", originalAddress);
-  await Proxy.connect(proxyAdmin.address);
-  console.log("Proxy connected to ProxyAdmin:", Proxy.address);
+  const Proxy = await ethers.getContractFactory("Proxy");
+  const initData = upgrade.interface.encodeFunctionData("initialize");
+  const proxy = await upgrades.deployProxy(Proxy, upgrade.address, initData, { initializer: 'initialize' });
+  await proxy.deployed();
+  console.log("Proxy deployed to:", proxy.address);
+
+  await proxyAdmin.setProxyAdmin(proxy.address, proxyAdmin.address);
+  console.log("ProxyAdmin set as admin of Proxy.");
 }
 
 main();
