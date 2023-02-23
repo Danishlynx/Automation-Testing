@@ -1,17 +1,38 @@
 const { ethers } = require("hardhat");
+const { TransparentUpgradeableProxy } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy');
+const { ProxyAdmin } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxyAdmin');
 
 async function main() {
-  const ProxyAdmin = await ethers.getContractFactory("ProxyAdmin");
-  const proxyAdmin = await ProxyAdmin.deploy();
+  const originalContractAddress = "0x2cB79b016C59D2c60ea3863Ae7cc7E5bFB0C5078"; // replace with your original contract address
+
+  // Retrieve the already deployed original contract instance
+  const OriginalContract = await ethers.getContractFactory("OriginalContract");
+  const originalContract = await OriginalContract.attach(originalContractAddress);
+
+  // Retrieve the signer account for deploying the proxy admin
+  const [deployer] = await ethers.getSigners();
+
+  // Deploy the proxy admin contract
+  const proxyAdmin = await ethers.getContractFactory("ProxyAdmin").deploy({ from: deployer.address });
   await proxyAdmin.deployed();
   console.log("ProxyAdmin deployed to:", proxyAdmin.address);
 
-  const Original = await ethers.getContractFactory("Original");
-  const originalAddress = "0x48cf3aFC4Fb98Dbd57f33602b655E4A37C7D1c91"; // replace with your deployed Original contract address
+  // Deploy the proxy contract
+  const ProxyContract = await ethers.getContractFactory("TransparentUpgradeableProxy");
+  const proxy = await ProxyContract.deploy(originalContractAddress, proxyAdmin.address, "0x", { from: deployer.address });
+  await proxy.deployed();
+  console.log("Proxy deployed to:", proxy.address);
 
-  const Proxy = await ethers.getContractAt("Proxy", originalAddress);
-  await Proxy.connect(proxyAdmin.address);
-  console.log("Proxy connected to ProxyAdmin:", Proxy.address);
+  // Connect the original contract to the proxy
+  const data = originalContract.interface.encodeFunctionData("setProxy", [proxy.address]);
+  await proxyAdmin.upgradeAndCall(originalContractAddress, proxy.address, data, { from: deployer.address });
+
+  console.log("Proxy connected to original contract!");
 }
 
-main();
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
