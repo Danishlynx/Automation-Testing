@@ -10,8 +10,6 @@ async function main() {
   const originalAddress = "0x8BDA3Aee6f7835dac51ec28F672cbD718EBB5A0F"; // replace with your deployed Original contract address
 
   const Proxy = await ethers.getContractAt("Proxy", originalAddress);
-  const proxy = await Proxy.deploy();
-  await proxy.deployed();
   await Proxy.connect(proxyAdmin.address);
   console.log("Proxy connected to ProxyAdmin:", Proxy.address);
 }
