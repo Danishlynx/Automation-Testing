@@ -1,6 +1,6 @@
 const { ethers } = require("hardhat");
 const { TransparentUpgradeableProxy } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol');
-const { ProxyAdmin } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxyAdmin.sol');
+const { ProxyAdmin } = require('@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol');
 
 async function main() {
   const originalContractAddress = "0x978eCCBF2Aaa29DFd274252C8B4Cc62F28dA5FCC"; // replace with your original contract address
