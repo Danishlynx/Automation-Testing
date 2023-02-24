@@ -1,5 +1,5 @@
 const { ethers } = require("hardhat");
-
+const { ERC1967Proxy } = require("@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy");
 
 async function main() {
   const proxyAdmin = await ethers.getContractFactory("ProxyAdmin");
@@ -10,10 +10,11 @@ async function main() {
   const originalAddress = "0x8BDA3Aee6f7835dac51ec28F672cbD718EBB5A0F"; // replace with your deployed Original contract address
 
   const proxy = await ethers.getContractFactory("Proxy");
-  const proxyInstance = await proxy.deploy(
+  const proxyInstance = await upgrades.deployProxy(
+    ERC1967Proxy,
     originalAddress,
-    adminInstance.address,
-    "0x"
+    "0x",
+    { initializer: false }
   );
   await proxyInstance.deployed();
   console.log("Proxy deployed to:", proxyInstance.address);
