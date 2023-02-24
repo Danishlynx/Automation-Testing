@@ -1,9 +1,9 @@
 const { ethers } = require("hardhat");
-const { TransparentUpgradeableProxy } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy');
-const { ProxyAdmin } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxyAdmin');
+const { TransparentUpgradeableProxy } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol');
+const { ProxyAdmin } = require('@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxyAdmin.sol');
 
 async function main() {
-  const originalContractAddress = "0x2cB79b016C59D2c60ea3863Ae7cc7E5bFB0C5078"; // replace with your original contract address
+  const originalContractAddress = "0x978eCCBF2Aaa29DFd274252C8B4Cc62F28dA5FCC"; // replace with your original contract address
 
   // Retrieve the already deployed original contract instance
   const OriginalContract = await ethers.getContractFactory("OriginalContract");
