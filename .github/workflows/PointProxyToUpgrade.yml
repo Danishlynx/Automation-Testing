@@ -33,6 +33,9 @@ jobs:
       - name: Installing hardhat
         run: npm install -g hardhat
         
+      - name: Installing OpenZepplin Contract
+        run: npm install @openzeppelin/contracts
+        
       - name: Compile contract
         run: npx hardhat compile
 
