@@ -1,17 +1,33 @@
 const { ethers } = require("hardhat");
+const { TransparentUpgradeableProxy } = require('@openzeppelin/contracts-upgradeable/proxy/transparent/TransparentUpgradeableProxy');
+const { TransparentUpgradeableProxyAdmin } = require('@openzeppelin/contracts-upgradeable/proxy/transparent/TransparentUpgradeableProxyAdmin');
 
 async function main() {
-  const ProxyAdmin = await ethers.getContractFactory("ProxyAdmin");
-  const proxyAdmin = await ProxyAdmin.deploy();
-  await proxyAdmin.deployed();
-  console.log("ProxyAdmin deployed to:", proxyAdmin.address);
+  const proxyAdmin = await ethers.getContractFactory("ProxyAdmin");
+  const adminInstance = await proxyAdmin.deploy();
+  await adminInstance.deployed();
+  console.log("ProxyAdmin deployed to:", adminInstance.address);
 
-  const Original = await ethers.getContractFactory("Original");
   const originalAddress = "0x8BDA3Aee6f7835dac51ec28F672cbD718EBB5A0F"; // replace with your deployed Original contract address
 
-  const Proxy = await ethers.getContractAt("Proxy", originalAddress);
-  await Proxy.connect(proxyAdmin.address);
-  console.log("Proxy connected to ProxyAdmin:", Proxy.address);
+  const proxy = await ethers.getContractFactory("TransparentUpgradeableProxy");
+  const proxyInstance = await proxy.deploy(
+    originalAddress,
+    adminInstance.address,
+    "0x"
+  );
+  await proxyInstance.deployed();
+  console.log("Proxy deployed to:", proxyInstance.address);
+
+  const setProxyAdminTx = await adminInstance.setProxyAdmin(
+    proxyInstance.address,
+    adminInstance.address
+  );
+  await setProxyAdminTx.wait();
+  console.log("ProxyAdmin is now the admin of the Proxy");
+
+  // test calling original function from proxy
+  await proxyInstance.testFunction();
 }
 
 main();
