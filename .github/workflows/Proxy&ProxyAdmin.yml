@@ -27,7 +27,7 @@ jobs:
         with:
           node:version: current
           
-      - name: Install depndencies 
+      - name: Install dependencies 
         run: npm ci
         
       - name: Installing hardhat
