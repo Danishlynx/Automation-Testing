@@ -2,6 +2,8 @@ const { ethers } = require("hardhat");
 const { upgrades } = require("@openzeppelin/contracts-upgradeable");
 const { ProxyAdmin } = require("@openzeppelin/contracts-upgradeable/access/ProxyAdmin");
 const { TransparentUpgradeableProxy } = require("@openzeppelin/contracts-upgradeable/proxy/transparent/TransparentUpgradeableProxy");
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
+import "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol";
 
 async function main() {
   const adminAddress = "0xf6f01C8A190062078383A4d527e4cf1D04a928c5"; // replace with your admin address
