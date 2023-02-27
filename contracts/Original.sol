@@ -1,20 +1,19 @@
-// SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity 0.8.10;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract Original is Initializable {
-  // these state variables and their values
-  // will be preserved forever, regardless of upgrading
-  uint public width;
-  uint public length;
-
-  constructor(uint _length, uint _width) {
-    length = _length;
-    width = _width;
-  }
-  
-  function area() public view returns(uint) {
-    return length * width;
-  }
+contract CalculatorV1 is Initializable {
+   uint public val;
+   
+   function initialize(uint256 _val) external initializer {
+        val = _val;
+    }
+    
+    function add(uint a, uint b) public pure returns (uint) {
+        return a + b;
+    }
+   
+   function getVal() public view returns (uint) {
+        return val;
+    }
 }
