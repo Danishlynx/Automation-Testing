@@ -1,33 +1,34 @@
 const { ethers } = require("hardhat");
-const { ERC1967Proxy } = require("@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy");
+const { upgrades } = require("@openzeppelin/contracts-upgradeable");
+const { ProxyAdmin } = require("@openzeppelin/contracts-upgradeable/access/ProxyAdmin");
+const { TransparentUpgradeableProxy } = require("@openzeppelin/contracts-upgradeable/proxy/transparent/TransparentUpgradeableProxy");
 
 async function main() {
-  const proxyAdmin = await ethers.getContractFactory("ProxyAdmin");
-  const adminInstance = await proxyAdmin.deploy();
-  await adminInstance.deployed();
-  console.log("ProxyAdmin deployed to:", adminInstance.address);
+  const adminAddress = "0xf6f01C8A190062078383A4d527e4cf1D04a928c5"; // replace with your admin address
+  const originalAddress = "0x8BDA3Aee6f7835dac51ec28F672cbD718EBB5A0F"; // replace with the address of your Original contract
 
-  const originalAddress = "0x8BDA3Aee6f7835dac51ec28F672cbD718EBB5A0F"; // replace with your deployed Original contract address
+  // Deploy admin contract
+  const admin = await upgrades.deployProxy(ProxyAdmin, []);
+  await admin.deployed();
 
-  const proxy = await ethers.getContractFactory("Proxy");
-  const proxyInstance = await upgrades.deployProxy(
-    ERC1967Proxy,
-    originalAddress,
-    "0x",
-    { initializer: false }
-  );
-  await proxyInstance.deployed();
-  console.log("Proxy deployed to:", proxyInstance.address);
+  console.log("Admin deployed to:", admin.address);
 
-  const setProxyAdminTx = await adminInstance.setProxyAdmin(
-    proxyInstance.address,
-    adminInstance.address
-  );
-  await setProxyAdminTx.wait();
-  console.log("ProxyAdmin is now the admin of the Proxy");
+  // Deploy transparent upgradeable proxy
+  const MyProxy = await ethers.getContractFactory("MyProxy");
+  const myProxy = await upgrades.deployProxy(MyProxy, [originalAddress], { initializer: "initialize" });
+  await myProxy.deployed();
 
-  // test calling original function from proxy
-  await proxyInstance.testFunction();
+  console.log("Proxy deployed to:", myProxy.address);
+
+  // Transfer ownership of proxy to admin
+  await admin.transferProxyAdminOwnership(myProxy.address);
+
+  console.log("Proxy ownership transferred to:", admin.address);
 }
 
-main();
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+});
