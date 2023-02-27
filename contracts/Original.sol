@@ -2,7 +2,7 @@ pragma solidity 0.8.10;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract CalculatorV1 is Initializable {
+contract Original is Initializable {
    uint public val;
    
    function initialize(uint256 _val) external initializer {
