@@ -1,11 +1,11 @@
-name: Deploy Contract
+name: Deploy Upgrade
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'deploy/**'
+      - 'deployV2/**'
 
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
@@ -36,4 +36,4 @@ jobs:
         run: npx hardhat test
 
       - name: Deploy contract
-        run: npx hardhat run deploy/deploy.js --network volta
+        run: npx hardhat run deployV2/deploy.js --network volta
