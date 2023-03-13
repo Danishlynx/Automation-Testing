@@ -1,0 +1,64 @@
+name: Deploy Contract
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+jobs:
+  deploy:
+    if: github.event_name == 'push' && (
+        contains(github.event.head_commit.modified, 'scripts/deploy/') ||
+        contains(github.event.head_commit.removed, 'scripts/deploy/') ||
+        contains(github.event.head_commit.added, 'scripts/deploy/')
+      )
+    name: Deploy Contract
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: current
+          
+      - name: Install dependencies 
+        run: npm ci
+        
+      - name: Installing hardhat
+        run: npm install -g hardhat
+        
+      - name: Compile contract
+        run: npx hardhat compile
+
+      - name: Test contract
+        run: npx hardhat test
+
+      - name: Deploy contract
+        run: npx hardhat run scripts/deploy/deploy.js --network volta
+
+  deploy-proxy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (
+        contains(github.event.head_commit.modified, 'scripts/deployV2/') ||
+        contains(github.event.head_commit.removed, 'scripts/deployV2/') ||
+        contains(github.event.head_commit.added, 'scriptsdeployV2/')
+      )
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: current
+
+      - name: Install dependencies 
+        run: npm ci
+
+      - name: Deploy proxy
+        run: npx hardhat run scripts/deployV2/deployV2.js --network volta
