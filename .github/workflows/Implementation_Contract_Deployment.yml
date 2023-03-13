@@ -1,33 +1,29 @@
-name: Deploy Contract
+name: Implementation Contract Deployment
 
 on:
   push:
     branches:
-      - main 
+      - Transparent 
     paths:
-      - 'deploy/**'
-    types:
-      - added
-      - modified
-
-
+      - 'deploy_Implementation/**'
+    
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
 jobs:
   deploy:
-    name: Deploy Contract
     runs-on: ubuntu-latest
-    steps: 
+    
+    steps:
       - name: Checkout code
         uses: actions/checkout@v2
         
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node:version: current
           
-      - name: Install dependencies 
+      - name: Install depndencies 
         run: npm ci
         
       - name: Installing hardhat
@@ -40,4 +36,4 @@ jobs:
         run: npx hardhat test
 
       - name: Deploy contract
-        run: npx hardhat run deploy/deploy.js --network volta
+        run: npx hardhat run deploy_Implementation/deploy_Original.js --network volta
