@@ -11,9 +11,9 @@ env:
 jobs:
   deploy:
     if: github.event_name == 'push' && (
-        contains(github.event.head_commit.modified, 'scripts/deploy/') ||
-        contains(github.event.head_commit.removed, 'scripts/deploy/') ||
-        contains(github.event.head_commit.added, 'scripts/deploy/')
+        contains(github.event.head_commit.modified, 'deploy/') ||
+        contains(github.event.head_commit.removed, 'deploy/') ||
+        contains(github.event.head_commit.added, 'deploy/')
       )
     name: Deploy Contract
     runs-on: ubuntu-latest
@@ -39,14 +39,14 @@ jobs:
         run: npx hardhat test
 
       - name: Deploy contract
-        run: npx hardhat run scripts/deploy/deploy.js --network volta
+        run: npx hardhat run deploy/deploy.js --network volta
 
   deploy-proxy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && (
-        contains(github.event.head_commit.modified, 'scripts/deployV2/') ||
-        contains(github.event.head_commit.removed, 'scripts/deployV2/') ||
-        contains(github.event.head_commit.added, 'scriptsdeployV2/')
+        contains(github.event.head_commit.modified, 'deployV2/') ||
+        contains(github.event.head_commit.removed, 'deployV2/') ||
+        contains(github.event.head_commit.added, 'deployV2/')
       )
     steps:
       - name: Checkout code
@@ -61,4 +61,4 @@ jobs:
         run: npm ci
 
       - name: Deploy proxy
-        run: npx hardhat run scripts/deployV2/deployV2.js --network volta
+        run: npx hardhat run deployV2/deployV2.js --network volta
