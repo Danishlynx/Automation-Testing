@@ -7,7 +7,6 @@ on:
     paths:
       - 'deploy/**'
     types:
-      - added
       - created
       - modified
      
