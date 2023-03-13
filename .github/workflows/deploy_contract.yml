@@ -7,13 +7,9 @@ on:
     paths:
       - 'deploy/**'
     types:
-      - created
-      - modified
       - added
-      - deleted
-
      
-    
+
 
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
