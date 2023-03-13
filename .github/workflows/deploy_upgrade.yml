@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - 'deployV2/**'
+    types:
+      - added
+      - modified
 
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
