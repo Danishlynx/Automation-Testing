@@ -36,4 +36,4 @@ jobs:
         run: npx hardhat test
 
       - name: Deploy contract
-        run: npx hardhat run scripts/deploy.js --network volta
+        run: npx hardhat run deploy/deploy.js --network volta
