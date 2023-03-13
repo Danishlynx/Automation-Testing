@@ -8,7 +8,7 @@ on:
       - 'deploy/**'
     types:
       - added
-      - modified
+     
     
 
 env:
