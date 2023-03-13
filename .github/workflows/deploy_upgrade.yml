@@ -1,4 +1,4 @@
-name: Deploy Upgrade
+name: Deploy Contract
 
 on:
   push:
@@ -6,16 +6,13 @@ on:
       - main
     paths:
       - 'deployV2/**'
-    types:
-      - added
-      - modified
 
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
 jobs:
   deploy:
-    name: Deploy Contract Upgrade
+    name: Deploy Contract
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout code

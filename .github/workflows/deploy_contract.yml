@@ -6,12 +6,6 @@ on:
       - main
     paths:
       - 'deploy/**'
-    types:
-      - added
-      - created
-      - modified
-     
-
 
 env:
   PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
