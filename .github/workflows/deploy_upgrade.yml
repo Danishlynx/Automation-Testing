@@ -12,7 +12,7 @@ env:
 
 jobs:
   deploy:
-    name: Deploy Contract
+    name: Deploy Contract Upgrade
     runs-on: ubuntu-latest
     steps: 
       - name: Checkout code
