@@ -3,7 +3,7 @@ name: Deploy Upgraded Contract
 on:
   push:
     branches:
-      - Tranparent 
+      - Transparent 
     paths:
       - 'deploy_Upgrade/**'
 
