@@ -9,6 +9,9 @@ on:
     types:
       - created
       - modified
+      - added
+      - deleted
+
      
     
 
