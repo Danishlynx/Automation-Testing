@@ -36,7 +36,21 @@ module.exports = {
       url: "https://rpc.energyweb.org",
       chainId: 246,
       accounts: [deployKey]
-    }
+    },
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+    gasReporter: {
+      currency: 'USD',
+      gasPrice: 21,
+      enabled: false,
+      coinmarketcap: process.env.COIN_MARKET_CAP_API,
+      token: "EWT",
+      enabled: process.env.GAS_REPORTING == "activate" ?  true : false
+    },
    
       
     }
